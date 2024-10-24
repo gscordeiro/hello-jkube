@@ -18,4 +18,11 @@ public class GreetingResource {
     private String getMessage(){
         return (new GreetingService()).greet().getGreet();
     }
+
+    @Path("/v2")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public GreetingModel hello2() {
+        return new GreetingService().greet();
+    }
 }
