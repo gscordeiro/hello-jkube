@@ -9,7 +9,7 @@ items:
       prometheus.io/path: /metrics
       prometheus.io/port: "9779"
       prometheus.io/scrape: "true"
-      jkube.eclipse.org/git-commit: bbafde67c5bd0dcf7fa5a9f86aad303e504109f3
+      jkube.eclipse.org/git-commit: 5bbf68d03f4b2a6f4536d939837494ec3ede47c6
       jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
       jkube.eclipse.org/git-branch: main
     labels:
@@ -40,7 +40,7 @@ items:
   kind: ConfigMap
   metadata:
     annotations:
-      jkube.eclipse.org/git-commit: bbafde67c5bd0dcf7fa5a9f86aad303e504109f3
+      jkube.eclipse.org/git-commit: 5bbf68d03f4b2a6f4536d939837494ec3ede47c6
       jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
       jkube.eclipse.org/git-branch: main
     labels:
@@ -59,7 +59,7 @@ items:
   kind: Deployment
   metadata:
     annotations:
-      jkube.eclipse.org/git-commit: bbafde67c5bd0dcf7fa5a9f86aad303e504109f3
+      jkube.eclipse.org/git-commit: 5bbf68d03f4b2a6f4536d939837494ec3ede47c6
       jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
       jkube.eclipse.org/git-branch: main
     labels:
@@ -86,7 +86,7 @@ items:
     template:
       metadata:
         annotations:
-          jkube.eclipse.org/git-commit: bbafde67c5bd0dcf7fa5a9f86aad303e504109f3
+          jkube.eclipse.org/git-commit: 5bbf68d03f4b2a6f4536d939837494ec3ede47c6
           jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
           jkube.eclipse.org/git-branch: main
         labels:
@@ -101,6 +101,8 @@ items:
       spec:
         containers:
         - env:
+          - name: HELLO_MSG
+            value: Mensagem estatica
           - name: KUBERNETES_NAMESPACE
             valueFrom:
               fieldRef:
@@ -124,8 +126,3 @@ items:
             protocol: TCP
           securityContext:
             privileged: false
-          "-name": HELLO_MSG
-          valueFrom:
-            configMapKeyRef:
-              name: hello-jkube
-              key: hello.msg

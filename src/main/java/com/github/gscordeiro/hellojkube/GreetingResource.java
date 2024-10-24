@@ -16,7 +16,6 @@ public class GreetingResource {
 
     //https://www.youtube.com/watch?v=0ivU7ElkeBo
     private String getMessage(){
-        String msg = System.getenv("HELLO_MSG");
-        return msg != null ? msg : "Hello from Quarkus REST";
+        return (new GreetingService()).greet().getGreet();
     }
 }

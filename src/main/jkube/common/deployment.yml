@@ -3,8 +3,9 @@ spec:
     spec:
       containers:
         - env: 
-          -name: HELLO_MSG
-          valueFrom:
-            configMapKeyRef:
-              name: ${name}
-              key: hello.msg
+          - name: HELLO_MSG
+            value: "Mensagem estatica"
+            #valueFrom:
+            #  configMapKeyRef:
+            #    name: ${name}
+            #    key: hello.msg
