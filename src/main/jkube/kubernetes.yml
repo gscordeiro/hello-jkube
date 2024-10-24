@@ -9,6 +9,9 @@ items:
       prometheus.io/path: /metrics
       prometheus.io/port: "9779"
       prometheus.io/scrape: "true"
+      jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
+      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
+      jkube.eclipse.org/git-branch: main
     labels:
       app: hello-jkube
       provider: jkube
@@ -33,9 +36,32 @@ items:
       app.kubernetes.io/part-of: com.github.gscordeiro
       app.kubernetes.io/managed-by: jkube
     type: NodePort
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    annotations:
+      jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
+      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
+      jkube.eclipse.org/git-branch: main
+    labels:
+      app: hello-jkube
+      provider: jkube
+      version: 1.0.0-SNAPSHOT
+      group: com.github.gscordeiro
+      app.kubernetes.io/part-of: com.github.gscordeiro
+      app.kubernetes.io/managed-by: jkube
+      app.kubernetes.io/name: hello-jkube
+      app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    name: hello-jkube
+  data:
+    hello.msg: Hello Ambiente DEV
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
+    annotations:
+      jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
+      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
+      jkube.eclipse.org/git-branch: main
     labels:
       app: hello-jkube
       provider: jkube
@@ -59,6 +85,10 @@ items:
         app.kubernetes.io/managed-by: jkube
     template:
       metadata:
+        annotations:
+          jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
+          jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
+          jkube.eclipse.org/git-branch: main
         labels:
           app: hello-jkube
           provider: jkube
@@ -68,19 +98,9 @@ items:
           app.kubernetes.io/managed-by: jkube
           app.kubernetes.io/name: hello-jkube
           app.kubernetes.io/version: 1.0.0-SNAPSHOT
-        name: hello-jkube
       spec:
         containers:
-        - env:
-          - name: KUBERNETES_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          - name: HOSTNAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-          image: gscordeiro/hello-jkube:latest
+        - image: gscordeiro/hello-jkube:latest
           imagePullPolicy: IfNotPresent
           name: quarkus
           ports:
@@ -95,3 +115,8 @@ items:
             protocol: TCP
           securityContext:
             privileged: false
+          env: HELLO_MSG
+          valueFrom:
+            configMapKeyRef:
+              name: hello-jkube
+              key: hello.msg

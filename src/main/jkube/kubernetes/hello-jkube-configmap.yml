@@ -1,11 +1,8 @@
 ---
 apiVersion: v1
-kind: Service
+kind: ConfigMap
 metadata:
   annotations:
-    prometheus.io/path: /metrics
-    prometheus.io/port: "9779"
-    prometheus.io/scrape: "true"
     jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
     jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
     jkube.eclipse.org/git-branch: main
@@ -19,17 +16,5 @@ metadata:
     app.kubernetes.io/name: hello-jkube
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
   name: hello-jkube
-spec:
-  ports:
-  - name: http
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    app: hello-jkube
-    provider: jkube
-    group: com.github.gscordeiro
-    app.kubernetes.io/name: hello-jkube
-    app.kubernetes.io/part-of: com.github.gscordeiro
-    app.kubernetes.io/managed-by: jkube
-  type: NodePort
+data:
+  hello.msg: Hello Ambiente DEV
