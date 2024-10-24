@@ -9,6 +9,9 @@ items:
       prometheus.io/path: /metrics
       prometheus.io/port: "9779"
       prometheus.io/scrape: "true"
+      jkube.eclipse.org/git-commit: bbafde67c5bd0dcf7fa5a9f86aad303e504109f3
+      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
+      jkube.eclipse.org/git-branch: main
     labels:
       app: hello-jkube
       provider: jkube
@@ -36,6 +39,10 @@ items:
 - apiVersion: v1
   kind: ConfigMap
   metadata:
+    annotations:
+      jkube.eclipse.org/git-commit: bbafde67c5bd0dcf7fa5a9f86aad303e504109f3
+      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
+      jkube.eclipse.org/git-branch: main
     labels:
       app: hello-jkube
       provider: jkube
@@ -51,6 +58,10 @@ items:
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
+    annotations:
+      jkube.eclipse.org/git-commit: bbafde67c5bd0dcf7fa5a9f86aad303e504109f3
+      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
+      jkube.eclipse.org/git-branch: main
     labels:
       app: hello-jkube
       provider: jkube
@@ -74,6 +85,10 @@ items:
         app.kubernetes.io/managed-by: jkube
     template:
       metadata:
+        annotations:
+          jkube.eclipse.org/git-commit: bbafde67c5bd0dcf7fa5a9f86aad303e504109f3
+          jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
+          jkube.eclipse.org/git-branch: main
         labels:
           app: hello-jkube
           provider: jkube
@@ -85,7 +100,16 @@ items:
           app.kubernetes.io/version: 1.0.0-SNAPSHOT
       spec:
         containers:
-        - image: gscordeiro/hello-jkube:latest
+        - env:
+          - name: KUBERNETES_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: HOSTNAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          image: gscordeiro/hello-jkube:latest
           imagePullPolicy: IfNotPresent
           name: quarkus
           ports:
@@ -100,7 +124,7 @@ items:
             protocol: TCP
           securityContext:
             privileged: false
-          env: HELLO_MSG
+          "-name": HELLO_MSG
           valueFrom:
             configMapKeyRef:
               name: hello-jkube
