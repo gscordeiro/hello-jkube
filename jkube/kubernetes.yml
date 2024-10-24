@@ -9,9 +9,6 @@ items:
       prometheus.io/path: /metrics
       prometheus.io/port: "9779"
       prometheus.io/scrape: "true"
-      jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
-      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
-      jkube.eclipse.org/git-branch: main
     labels:
       app: hello-jkube
       provider: jkube
@@ -39,10 +36,6 @@ items:
 - apiVersion: v1
   kind: ConfigMap
   metadata:
-    annotations:
-      jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
-      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
-      jkube.eclipse.org/git-branch: main
     labels:
       app: hello-jkube
       provider: jkube
@@ -58,10 +51,6 @@ items:
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
-    annotations:
-      jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
-      jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
-      jkube.eclipse.org/git-branch: main
     labels:
       app: hello-jkube
       provider: jkube
@@ -85,10 +74,6 @@ items:
         app.kubernetes.io/managed-by: jkube
     template:
       metadata:
-        annotations:
-          jkube.eclipse.org/git-commit: 702ea18a5e043f77ca933ca424ce9de2575c90e5
-          jkube.eclipse.org/git-url: https://bitbucket.org/gilliard/hello-jkube.git
-          jkube.eclipse.org/git-branch: main
         labels:
           app: hello-jkube
           provider: jkube
