@@ -11,6 +11,12 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello from Quarkus REST";
+        return getMessage();
+    }
+
+    //https://www.youtube.com/watch?v=0ivU7ElkeBo
+    private String getMessage(){
+        String msg = System.getenv("HELLO_MSG");
+        return msg != null ? msg : "Hello from Quarkus REST";
     }
 }

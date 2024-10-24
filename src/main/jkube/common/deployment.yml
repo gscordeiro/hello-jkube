@@ -1,0 +1,9 @@
+spec:
+  template:
+    spec:
+      containers:
+        - env: HELLO_MSG
+          valueFrom:
+            configMapKeyRef:
+              name: ${name}
+              key: hello.msg
